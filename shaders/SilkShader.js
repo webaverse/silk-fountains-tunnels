@@ -245,11 +245,11 @@ const SilkRawShader = {
     `,
 
     uniforms: {
-      
+    
       time: {
         value: 0.0
       },
-
+  
       backgroundColor: {
         value: {
           r: 0.42,
@@ -257,14 +257,14 @@ const SilkRawShader = {
           b: 0.72
         }
       },
-
+  
       tileCaustic_resolution: {
         value: {
-          x: 1,
-          y: 1
+          x: 20,
+          y: 20
         }
       },
-
+  
       tileCaustic_col: {
         value: {
           r: 0.80,
@@ -272,31 +272,31 @@ const SilkRawShader = {
           b: 0.20
         }
       },
-
+  
       tileCaustic_speed: {
         value: 0.2
       },
-
+  
       tileCaustic_brightness: {
         value: 1.5
       },
-
+  
       noiseImage: {
         value: null
       },
-
+  
       distortion: {
-        value: 2
+        value: 50
       },
-
+  
       contrast: {
-        value: 2.5
+        value: 1.9,
       },
-
+  
       noiseRipples_speed: {
-        value: 0.1
+        value: 0.6
       },
-
+  
       noiseRipples_col: {
         value: {
           r: 0.34,
@@ -307,14 +307,14 @@ const SilkRawShader = {
       noiseRipples_brightness: {
         value: 0.1
       },
-
+  
       noiseRipples_res: {
         value: {
-          x: 3.0,
-          y: 3.0
+          x: 20.5,
+          y: 20.5
         },
       },
-
+  
       transGlow_col: {
         value: {
           r: 1,
@@ -322,35 +322,35 @@ const SilkRawShader = {
           b: 0.82
         }
       },
-
+  
       transGlow_start: {
         value: 0.55
       },
-
+  
       transGlow_end: {
         value: 0.44
       },
-
+  
       transGlow_alpha: {
         value: 0.5
       },
-
+  
       glowEffect_col: {
         value: {
-          r: 1.0,
-          g: 1.0,
-          b: 1.0
+          r: 0.0,
+          g: 0.0,
+          b: 0.0
         }
       },
-
+  
       glowEffect_start: {
         value: 0.0
       },
-
+  
       glowEffect_end: {
-        value: 2.0
+        value: 1.9
       },
-
+  
       glowEffect_alpha: {
         value: 1.0
       }
