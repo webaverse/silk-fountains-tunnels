@@ -64,32 +64,41 @@ export default () => {
 
                     
 
-                    if( params.fileName == "TunnelOnly_V4_dream.glb" ) {
+                    /* if( params.fileName == "TunnelOnly_V4_dream.glb" ) {
                         const physicsId = physics.addGeometry( child );
                         physicsIds.push( physicsId );
-                    }
+                    } */
                        
     
                     if ( child.isMesh ) {
 
-                        if( params.fileName != "TunnelOnly_V4_dream.glb" ) {
+                        if( params.fileName == "Silk_TunnelOnly_V4_dream.glb" ) {
                             child.material = getSilkMaterialClone();
 
                             console.log( 'SILK NAME ' + child.name )
                             
                             let distanceScale = child.position.distanceTo( p ) * 10000;
                             child.dist = distanceScale;
-                            //distCtr+= 0.001;
-                            //child.dist *= 0.5;
                             child.material.side = THREE.FrontSide;
                             silkNodesArray.push( child );
                         }
 
-                       
                         
+                        if( params.fileName == 'Heart_Fountain_V2_galad.glb' ){
+
+                            if( child.name == 'Silk' ){
+                                child.material = getSilkMaterialClone();
+                                let distanceScale = child.position.distanceTo( p ) * 10000;
+                                child.dist = distanceScale;
+                                child.material.side = THREE.FrontSide;
+                                silkNodesArray.push( child );
+                            }
+                            
+                        }
+                    
                         //child.castShadow = true;
                         //child.receiveShadow = true;
-                        child.material.side = THREE.DoubleSide;
+                        child.material.side = THREE.FrontSide;
                         numVerts += child.geometry.index.count / 3;  
                     }
                 }.bind( this ));
@@ -115,6 +124,8 @@ export default () => {
         result => {
             app.add( result );
             result.updateMatrixWorld();
+            const physicsId = physics.addGeometry( result.children[ 0 ] );
+            physicsIds.push( physicsId );
         }
     )
 
@@ -129,15 +140,16 @@ export default () => {
         }
     )
 
-    const silkMaterialClone = () => {
-        let silkMaterial = silkShaderMaterial.clone();
-        silkMaterial.uniforms.noiseImage.value = silkMaterialTexture;
-
-        let seed = Math.random() * 0;
-        silkMaterial.seed = seed;
-    
-        return silkMaterial;
-    }
+    loadModel( { 
+        filePath: baseUrl,
+        fileName: 'Heart_Fountain_V2_galad.glb',
+        pos: { x: 0, y: 0, z: 0 },
+    } ).then ( 
+        result => {
+            app.add( result );
+            result.updateMatrixWorld();
+        }
+    )
 
     useFrame(( { timestamp } ) => {
 
