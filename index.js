@@ -61,55 +61,36 @@ export default () => {
                 let p = new THREE.Vector3( 15, 0, 0);
     
                 gltf.scene.traverse( function ( child ) {
-
-                    
-
-                    /* if( params.fileName == "TunnelOnly_V4_dream.glb" ) {
-                        const physicsId = physics.addGeometry( child );
-                        physicsIds.push( physicsId );
-                    } */
-                       
     
                     if ( child.isMesh ) {
 
                         if( params.fileName == "Silk_TunnelOnly_V4_dream.glb" ) {
                             child.material = getSilkMaterialClone();
-
-                            console.log( 'SILK NAME ' + child.name )
                             
                             let distanceScale = child.position.distanceTo( p ) * 10000;
                             child.dist = distanceScale;
-                            child.material.side = THREE.FrontSide;
+                            child.material.side = THREE.DoubleSide;
                             silkNodesArray.push( child );
                         }
 
                         
                         if( params.fileName == 'Heart_Fountain_V2_galad.glb' ){
 
-                            if( child.name == 'Silk' ){
+                            if( child.name == 'Silk-low' ){
                                 child.material = getSilkMaterialClone();
                                 let distanceScale = child.position.distanceTo( p ) * 10000;
                                 child.dist = distanceScale;
-                                child.material.side = THREE.FrontSide;
+                                child.material.side = THREE.DoubleSide;
                                 silkNodesArray.push( child );
                             }
                             
                         }
-                    
-                        //child.castShadow = true;
-                        //child.receiveShadow = true;
-                        child.material.side = THREE.FrontSide;
+
+                        child.material.side = THREE.DoubleSide;
                         numVerts += child.geometry.index.count / 3;  
                     }
-                }.bind( this ));
+                });
     
-                console.log( 'addModel() num verts: ' + numVerts );
-    
-                
-                //gltf.scene.rotation.set( params.modelRotationAngles.x * Math.PI / 180, params.modelRotationAngles.y * Math.PI / 180, params.modelRotationAngles.z * Math.PI / 180 );
-                //gltf.scene.scale.set( 0.2, 0.2, 0.2 );
-    
-                //gltf.scene.position.set( params.modelPos.x, params.modelPos.y, params.modelPos.z );
     
                 resolve( gltf.scene ); 
             });
@@ -159,8 +140,8 @@ export default () => {
             let shaderMesh = silkNodesArray[ i ];
             shaderMesh.material.seed += 0.005;
             shaderMesh.material.uniforms.time.value = shaderMesh.material.seed;
-            // needs refining - purely for debugging at present
-            shaderMesh.material.uniforms.contrast.value = 5.5 + ( Math.sin( shaderMesh.dist + silkBrightnessVal ) * 1 ) * 1.5 * 10;
+            shaderMesh.material.uniforms.tileCaustic_brightness.value = 1.5 - ( ( ( 1 + Math.sin( shaderMesh.dist + silkBrightnessVal ) ) * 0.5 ) );
+            shaderMesh.material.uniforms.noiseRipples_brightness.value = 0.1 - ( ( ( 1 + Math.sin( shaderMesh.dist + silkBrightnessVal ) ) * 0.5 ) * 0.075 );
         }
     });
 
