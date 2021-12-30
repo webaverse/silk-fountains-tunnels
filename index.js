@@ -86,6 +86,13 @@ export default () => {
                             
                         }
 
+                        if( params.fileName == 'Torch.glb' ){
+
+                            let light = new THREE.PointLight( 0xfc8403, 15, 10 );
+                            light.position.copy(child.position);
+                            child.add( light );                            
+                        }
+
                         child.material.side = THREE.DoubleSide;
                         numVerts += child.geometry.index.count / 3;  
                     }
@@ -124,6 +131,17 @@ export default () => {
     loadModel( { 
         filePath: baseUrl,
         fileName: 'Heart_Fountain_V2_galad.glb',
+        pos: { x: 0, y: 0, z: 0 },
+    } ).then ( 
+        result => {
+            app.add( result );
+            result.updateMatrixWorld();
+        }
+    )
+
+    loadModel( { 
+        filePath: baseUrl,
+        fileName: 'Torch.glb',
         pos: { x: 0, y: 0, z: 0 },
     } ).then ( 
         result => {
